@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- added Scrollview for landscape mode -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"> <!-- added to prevent blank space on bottom -->
+
+    <!-- Layout is for entering registration information -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/LayoutRegistration"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundColor"
+        tools:context=".ActivityRegistration">
+        <!-- Heading -->
+        <TextView
+            android:id="@+id/textViewRegistration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text=" Enter Registration"
+            android:textIsSelectable="false"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <EditText
+            android:id="@+id/editTextFirstName"
+            android:layout_width="210dp"
+            android:layout_height="42dp"
+            android:layout_marginTop="36dp"
+            android:ems="10"
+            android:hint="@string/first_name"
+            android:inputType="textPersonName"
+            android:text="john"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textViewFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/textViewRegistration" />
+
+
+        <!-- Submit User data -->
+
+        <EditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="210dp"
+            android:layout_height="45dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/last_name"
+            android:inputType="textPersonName"
+            android:text="acocella"
+            app:layout_constraintStart_toEndOf="@+id/textViewLastName"
+            app:layout_constraintStart_toStartOf="@+id/editTextFirstName"
+            app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
+
+        <EditText
+            android:id="@+id/editTextDate"
+            android:layout_width="215dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="16dp"
+            android:ems="10"
+            android:hint="@string/birth_date"
+            android:inputType="date"
+            android:text="04/06/1972"
+            app:layout_constraintStart_toEndOf="@+id/textViewDate"
+            app:layout_constraintStart_toStartOf="@+id/editTextLastName"
+            app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+
+        <EditText
+            android:id="@+id/editTextEmailAddress"
+            android:layout_width="214dp"
+            android:layout_height="44dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"
+            android:text="jacocella@hotmail.com"
+            app:layout_constraintStart_toEndOf="@+id/textViewEmail"
+            app:layout_constraintStart_toStartOf="@+id/editTextDate"
+            app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="214dp"
+            android:layout_height="46dp"
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:text="12345678"
+            app:layout_constraintStart_toEndOf="@+id/textViewPassword"
+            app:layout_constraintStart_toStartOf="@+id/editTextEmailAddress"
+            app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress" />
+
+        <Button
+            android:id="@+id/buttonLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:onClick="SaveRegistration"
+            android:text="Register"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textViewLastName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Last Name"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextLastName"
+            app:layout_constraintStart_toStartOf="@+id/textViewFirstName" />
+
+        <TextView
+            android:id="@+id/textViewFirstName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="First Name"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextFirstName"
+            app:layout_constraintEnd_toStartOf="@+id/editTextFirstName"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/textViewDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Birth Date"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextDate"
+            app:layout_constraintStart_toStartOf="@+id/textViewLastName" />
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextEmailAddress"
+            app:layout_constraintStart_toStartOf="@+id/textViewDate" />
+
+        <TextView
+            android:id="@+id/textViewPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="18sp"
+            app:layout_constraintBaseline_toBaselineOf="@+id/editTextPassword"
+            app:layout_constraintStart_toStartOf="@+id/textViewEmail" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Card Quiz</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="invalid_name">Name is invalid</string>
+    <string name="invalid_date">Invalid date</string>
+    <string name="invalid_email">Email is invalid</string>
+    <string name="preference_file_key">com.ga.cardquiz.SHARED_PREF_FILE</string>
+    <string name="KEY1">KEY1</string>
+
+    <string name="password">Enter Password</string>
+    <string name="email">Enter Email</string>
+    <string name="birth_date">Enter Birth Date</string>
+    <string name="last_name">Enter Last Name</string>
+    <string name="first_name">Enter First Name</string>
+
+
+</resources>
