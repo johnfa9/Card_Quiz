@@ -12,16 +12,18 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.telecom.Call;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity
         implements CallBackInterface {
-    UserSharedStorage userSharedStorage;
+    UserSharedStorage userSharedStorage;  //to store login
     FragmentManager manager;
 
     final int intQuestionCount = Questions.questionList.length;
     public int intQuestionPosition = 0;
-    Fragment[] frags = new Fragment[intQuestionCount]; //to hold question objects
+    Fragment[] frags = new Fragment[intQuestionCount]; //an array of Fragments to hold questions
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,32 +41,59 @@ public class MainActivity extends AppCompatActivity
 
         //add fragment dynamically
 
-        manager = getSupportFragmentManager();
+        manager = getSupportFragmentManager();  //create fragment manager
         //addQuestionFragment();  //send question
         createFragments();
         displayFragment(0);
 
+        //Not used
 
-        Fragment f = manager.findFragmentById(R.id.fragformat1); //id value in fragment
 
     }
 
     private void createFragments() {
+        //Populate Fragment array with questions from questionList array
 
-        QuestionFormat1 newFrag;
+        //QuestionFormat1 newFrag;
+        QuestionFormat1 newFrag1;
+        QuestionFormat2 newFrag2;
+
+
         for (int i = 0; i < intQuestionCount; i++) {
-            Bundle bundle = new Bundle();
-            frags[i] = new QuestionFormat1();
-            newFrag = (QuestionFormat1) frags[i];
+            Bundle bundle = new Bundle();  //bundle will hold the question information
             Question result = Questions.questionList[i];
 
+            if (Questions.questionList[i].getType() == "radio") {
 
+                frags[i] = new QuestionFormat1();  //create a single choice question
+                //newFrag = frags[i]; //get a reference to the created fragment
+                  //retrieve a question
+                newFrag1 = (QuestionFormat1) frags[i]; //get a reference to the created fragment
+                newFrag1.setCallBackInterface(this);
+                newFrag1.setArguments(bundle);
+            }
+
+            else {
+                frags[i] = new QuestionFormat2();  //create a single choice question
+                //newFrag = frags[i]; //get a reference to the created fragment
+                //result = Questions.questionList[i];  //retrieve a question
+                newFrag2 = (QuestionFormat2) frags[i]; //get a reference to the created fragment
+                newFrag2.setCallBackInterface(this);
+                newFrag2.setArguments(bundle);
+            }
+
+            result = Questions.questionList[i];
+
+            //copy the question to a bundle
             bundle.putString("Question", result.getQuestionText());
             bundle.putString("ChoiceA", result.getChoiceA());
             bundle.putString("ChoiceB", result.getChoiceB());
             bundle.putString("ChoiceC", result.getChoiceC());
-            newFrag.setCallBackInterface(this);
-            newFrag.setArguments(bundle);
+            bundle.putString("ChoiceD", result.getChoiceD());
+
+            //pass bundle to fragment
+            //newFrag.setCallBackInterface(this);
+            //newFrag.setArguments(bundle);
         }
 
 
@@ -73,7 +102,15 @@ public class MainActivity extends AppCompatActivity
     private void displayFragment(int fragNum) {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.main_layout, frags[fragNum], "questionType" + fragNum);   //id created for main activity layout
+        transaction.addToBackStack("Question " + fragNum);
         transaction.commit();
+
+
+        Fragment f = manager.findFragmentById(R.id.fragformat1); //id value in fragment
+        //RadioGroup radioText=f.getView().findViewById(R.id.radioGroup);
+      // RadioButton T=  (RadioButton)f.getView().findViewById(R.id.choiceA);
+        //T.setChecked(true);
+
     }
 
     private void addQuestionFragment() {
@@ -88,6 +125,7 @@ public class MainActivity extends AppCompatActivity
         bundle.putString("ChoiceA", result.getChoiceA());
         bundle.putString("ChoiceB", result.getChoiceB());
         bundle.putString("ChoiceC", result.getChoiceC());
+        bundle.putString("ChoiceD", result.getChoiceD());
 
         frag.setCallBackInterface(this);  //send a reference of Activity to fragment
         frag.setArguments(bundle);
@@ -125,7 +163,7 @@ public class MainActivity extends AppCompatActivity
         boolean answer = false;
         Toast.makeText(this, strPassed, Toast.LENGTH_SHORT).show();
         confirmAnswer(strPassed);
-        displayFragment(intQuestionPosition);
+        //displayFragment(intQuestionPosition);
     }
 
 
@@ -172,9 +210,12 @@ public class MainActivity extends AppCompatActivity
             Questions.questionList[intQuestionPosition].setCorrectAnswer(false);
         }
 
+        //Record user's answer to the question
+        Questions.questionList[intQuestionPosition].setUserAnswer(strAnswer);
+
         if (intQuestionPosition < (intQuestionCount-1)) {
            intQuestionPosition += 1;
-            displayFragment(intQuestionPosition);
+            displayFragment(intQuestionPosition);  //display next fragment
 
         } else {
             score();
@@ -189,5 +230,14 @@ public class MainActivity extends AppCompatActivity
             }
         }
         Toast.makeText(this, "You got " + intNumberCorrect + " questions correct", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        //super.onBackPressed();
+        //intQuestionPosition = intQuestionPosition -1;
+        Toast.makeText(this, "Sorry you can update a confirmed answer", Toast.LENGTH_SHORT).show();
+
     }
 }

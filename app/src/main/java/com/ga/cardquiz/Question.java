@@ -1,12 +1,14 @@
 package com.ga.cardquiz;
 
 public class Question {
+    private String type;
     private String questionText;
     private String choiceA;
     private String choiceB;
     private String choiceC;
     private String choiceD;
     private String answer;
+    private String userAnswer;
     private Boolean correctAnswer;
 
     public String getAnswer() {
@@ -25,13 +27,17 @@ public class Question {
         this.correctAnswer = correctAnswer;
     }
 
-    public Question(String questionText, String choiceA, String choiceB, String choiceC, String choiceD, String answer, Boolean correctAnswer) {
+    public Question(String type, String questionText, String choiceA, String choiceB,
+                    String choiceC, String choiceD, String answer,
+                    String userAnswer, Boolean correctAnswer) {
+        this.type = type;
         this.questionText = questionText;
         this.choiceA = choiceA;
         this.choiceB = choiceB;
         this.choiceC = choiceC;
         this.choiceD = choiceD;
         this.answer = answer;
+        this.userAnswer = userAnswer;
         this.correctAnswer = correctAnswer;
     }
 
@@ -73,5 +79,21 @@ public class Question {
 
     public void setChoiceD(String choiceD) {
         this.choiceD = choiceD;
+    }
+
+    public String getUserAnswer() {
+        return userAnswer;
+    }
+
+    public void setUserAnswer(String userAnswer) {
+        this.userAnswer = userAnswer;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

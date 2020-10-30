@@ -10,7 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
+
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -97,6 +97,7 @@ public class QuestionFormat1 extends Fragment {
             final String choiceA = this.getArguments().getString("ChoiceA");
             final String choiceB = this.getArguments().getString("ChoiceB");
             final String choiceC = this.getArguments().getString("ChoiceC");
+            final String choiceD = this.getArguments().getString("ChoiceD");
 
             //Populate question
             TextView vwQuestion =(TextView) view.findViewById(R.id.text_view_selected);
@@ -112,6 +113,7 @@ public class QuestionFormat1 extends Fragment {
             ((RadioButton) radioGroup.getChildAt(0)).setText(String.valueOf(choiceA));
             ((RadioButton) radioGroup.getChildAt(1)).setText(String.valueOf(choiceB));
             ((RadioButton) radioGroup.getChildAt(2)).setText(String.valueOf(choiceC));
+            ((RadioButton) radioGroup.getChildAt(3)).setText(String.valueOf(choiceD));
 
 
 

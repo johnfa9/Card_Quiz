@@ -14,6 +14,15 @@
     <string name="birth_date">Enter Birth Date</string>
     <string name="last_name">Enter Last Name</string>
     <string name="first_name">Enter First Name</string>
+    <string name="instruction_text">
+        You will have 5 minutes to show what you know. \n\nEach question can be attempted only
+        one time.\n\nAfter selecting an Answer, you will be given an opportunity confirm your
+        answer before moving to the next question\n\nThe game will end when either all of the
+        questions have been submitted, or when time runs out\n\nQuestions not submitted will
+        be marked incorrect.\n\nThe player with the highest score will be declared
+        the winner\n\n Press continue when you are ready to begin\n\n
+        Good Luck !!!
 
+    </string>
 
 </resources>
