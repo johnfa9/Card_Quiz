@@ -8,6 +8,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.telecom.Call;
@@ -15,6 +17,10 @@ import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
+
+import java.io.FileOutputStream;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity
         implements CallBackInterface {
@@ -55,8 +61,8 @@ public class MainActivity extends AppCompatActivity
         //Populate Fragment array with questions from questionList array
 
         //QuestionFormat1 newFrag;
-        QuestionFormat1 newFrag1;
-        QuestionFormat2 newFrag2;
+        QuestionFormat1 newFrag1; //question with radio button format
+        QuestionFormat2 newFrag2; //multi answer question
 
 
         for (int i = 0; i < intQuestionCount; i++) {
@@ -67,13 +73,11 @@ public class MainActivity extends AppCompatActivity
 
                 frags[i] = new QuestionFormat1();  //create a single choice question
                 //newFrag = frags[i]; //get a reference to the created fragment
-                  //retrieve a question
+                //retrieve a question
                 newFrag1 = (QuestionFormat1) frags[i]; //get a reference to the created fragment
                 newFrag1.setCallBackInterface(this);
                 newFrag1.setArguments(bundle);
-            }
-
-            else {
+            } else {
                 frags[i] = new QuestionFormat2();  //create a single choice question
                 //newFrag = frags[i]; //get a reference to the created fragment
                 //result = Questions.questionList[i];  //retrieve a question
@@ -102,37 +106,37 @@ public class MainActivity extends AppCompatActivity
     private void displayFragment(int fragNum) {
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.replace(R.id.main_layout, frags[fragNum], "questionType" + fragNum);   //id created for main activity layout
-        transaction.addToBackStack("Question " + fragNum);
+        //transaction.addToBackStack("Question " + fragNum);
         transaction.commit();
 
 
         Fragment f = manager.findFragmentById(R.id.fragformat1); //id value in fragment
         //RadioGroup radioText=f.getView().findViewById(R.id.radioGroup);
-      // RadioButton T=  (RadioButton)f.getView().findViewById(R.id.choiceA);
+        // RadioButton T=  (RadioButton)f.getView().findViewById(R.id.choiceA);
         //T.setChecked(true);
 
     }
 
-    private void addQuestionFragment() {
-        //sends question to fragment
-        Bundle bundle = new Bundle();
-
-
-        //create fragment
-        QuestionFormat1 frag = new QuestionFormat1();  //name of fragment's Java file
-        Question result = Questions.questionList[0];
-        bundle.putString("Question", result.getQuestionText());
-        bundle.putString("ChoiceA", result.getChoiceA());
-        bundle.putString("ChoiceB", result.getChoiceB());
-        bundle.putString("ChoiceC", result.getChoiceC());
-        bundle.putString("ChoiceD", result.getChoiceD());
-
-        frag.setCallBackInterface(this);  //send a reference of Activity to fragment
-        frag.setArguments(bundle);
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.main_layout, frag, "questionType1");   //id created for main activity layout
-        transaction.commit();
-    }
+//    private void addQuestionFragment() {
+//        //sends question to fragment
+//        Bundle bundle = new Bundle();
+//
+//
+//        //create fragment
+//        QuestionFormat1 frag = new QuestionFormat1();  //name of fragment's Java file
+//        Question result = Questions.questionList[0];
+//        bundle.putString("Question", result.getQuestionText());
+//        bundle.putString("ChoiceA", result.getChoiceA());
+//        bundle.putString("ChoiceB", result.getChoiceB());
+//        bundle.putString("ChoiceC", result.getChoiceC());
+//        bundle.putString("ChoiceD", result.getChoiceD());
+//
+//        frag.setCallBackInterface(this);  //send a reference of Activity to fragment
+//        frag.setArguments(bundle);
+//        FragmentTransaction transaction = manager.beginTransaction();
+//        transaction.add(R.id.main_layout, frag, "questionType1");   //id created for main activity layout
+//        transaction.commit();
+//    }
 
     @Override
     protected void onStart() {
@@ -213,8 +217,8 @@ public class MainActivity extends AppCompatActivity
         //Record user's answer to the question
         Questions.questionList[intQuestionPosition].setUserAnswer(strAnswer);
 
-        if (intQuestionPosition < (intQuestionCount-1)) {
-           intQuestionPosition += 1;
+        if (intQuestionPosition < (intQuestionCount - 1)) {
+            intQuestionPosition += 1;
             displayFragment(intQuestionPosition);  //display next fragment
 
         } else {
@@ -229,15 +233,79 @@ public class MainActivity extends AppCompatActivity
                 intNumberCorrect += 1;
             }
         }
-        Toast.makeText(this, "You got " + intNumberCorrect + " questions correct", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, "Score:  " + intNumberCorrect + " questions correct", Toast.LENGTH_SHORT).show();
+        //write quiz results to file
+        submitScores("Score: " + intNumberCorrect  + "/5 correct");
+
+        //load result fragment
+
+        //DisplayResult();
+
+        //Intent intent = new Intent(this, ResultsActivity.class);
+        //startActivity(intent);
+
     }
 
     @Override
     public void onBackPressed() {
+        //Prevent operation of back button
 
         //super.onBackPressed();
         //intQuestionPosition = intQuestionPosition -1;
         Toast.makeText(this, "Sorry you can update a confirmed answer", Toast.LENGTH_SHORT).show();
 
     }
+
+    private void submitScores(String score) {
+        //save score to a file
+        // Validate the form...
+        String timestamp;
+        String filename = "cardFile.txt";
+        FileOutputStream outputStream;
+
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(dtf.format(now));
+
+        try {
+
+            //private to app
+            outputStream = openFileOutput(filename, this.MODE_PRIVATE|this.MODE_APPEND);
+            outputStream.write(dtf.format(now).getBytes());  //content initialized above
+            outputStream.write("\t\t".getBytes());  //content initialized above
+            outputStream.write(score.getBytes());
+            outputStream.write("\n".getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void RestartGame(View view) {
+        Toast.makeText(this, "I restarted", Toast.LENGTH_LONG).show();
+        //reset game parameters
+        for (int i = 0;i<intQuestionCount;i++) {
+            Questions.questionList[i].setUserAnswer(null);
+            Questions.questionList[i].setCorrectAnswer(false);
+        }
+
+     //displayFragment(0);
+     }
+//
+ResultsActivity resultView;
+
+
+
+//     public void DisplayResult(){
+//         ResultsActivity resultView = new ResultsActivity();
+//         resultView.setCallBackInterface(this);
+//         FragmentTransaction transaction = manager.beginTransaction();
+//         transaction.replace(R.id.main_layout, res, "questionType" + "results");   //id created for main activity layout
+         //transaction.addToBackStack("Question " + fragNum);
+//         transaction.commit();
+
+     //}
+
+
 }
