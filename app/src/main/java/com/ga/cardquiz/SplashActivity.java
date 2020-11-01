@@ -18,7 +18,7 @@ public class SplashActivity extends AppCompatActivity {
                 .withFullScreen()
                 .withTargetActivity(RegisterOrLogin.class)
                 .withSplashTimeOut(1000)  //display 5 seconds
-                .withBackgroundColor(Color.parseColor("#F0B3A6"))
+                .withBackgroundColor(Color.parseColor("#a0b2e8"))
                 .withHeaderText("CardQuiz Emporium!")
                 .withAfterLogoText("Try your luck")
                 .withBeforeLogoText("Get Rich Quick!")

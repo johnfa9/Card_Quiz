@@ -38,7 +38,6 @@
             android:ems="10"
             android:hint="@string/first_name"
             android:inputType="textPersonName"
-            android:text="john"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/textViewFirstName"
@@ -55,7 +54,6 @@
             android:ems="10"
             android:hint="@string/last_name"
             android:inputType="textPersonName"
-            android:text="acocella"
             app:layout_constraintStart_toEndOf="@+id/textViewLastName"
             app:layout_constraintStart_toStartOf="@+id/editTextFirstName"
             app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
@@ -68,7 +66,6 @@
             android:ems="10"
             android:hint="@string/birth_date"
             android:inputType="date"
-            android:text="04/06/1972"
             app:layout_constraintStart_toEndOf="@+id/textViewDate"
             app:layout_constraintStart_toStartOf="@+id/editTextLastName"
             app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
@@ -81,7 +78,6 @@
             android:ems="10"
             android:hint="@string/email"
             android:inputType="textEmailAddress"
-            android:text="jacocella@hotmail.com"
             app:layout_constraintStart_toEndOf="@+id/textViewEmail"
             app:layout_constraintStart_toStartOf="@+id/editTextDate"
             app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
@@ -94,7 +90,6 @@
             android:ems="10"
             android:hint="@string/password"
             android:inputType="textPassword"
-            android:text="12345678"
             app:layout_constraintStart_toEndOf="@+id/textViewPassword"
             app:layout_constraintStart_toStartOf="@+id/editTextEmailAddress"
             app:layout_constraintTop_toBottomOf="@+id/editTextEmailAddress" />

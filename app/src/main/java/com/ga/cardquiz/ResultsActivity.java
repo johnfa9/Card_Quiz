@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +22,8 @@ import java.io.InputStreamReader;
 
 public class ResultsActivity extends Fragment {
     private TextView mDisplayMsg;
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_results);
 
 
-    // }
     CallBackInterface callBackInterface;
 
     public void setCallBackInterface(CallBackInterface callBackInterface) {
@@ -58,9 +53,7 @@ public class ResultsActivity extends Fragment {
             }
         });
         return view;
-
     }
-
 
     @Override
     public void onStart() {
@@ -68,6 +61,9 @@ public class ResultsActivity extends Fragment {
         View view = getView();
         TextView mDisplayMsg;
         mDisplayMsg = view.findViewById(R.id.showMsg);
+        mDisplayMsg.setMovementMethod(new ScrollingMovementMethod()); //allows history to be
+        // scrolled
+
         try {
             mDisplayMsg.setText(readTextFromUri(Uri.fromFile(new File(getActivity().getFilesDir(), "cardFile.txt"))));
         } catch (IOException e) {

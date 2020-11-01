@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class UserSharedStorage {
+    //creats shared storage for user registration
     public static final String SP_Name = "userDetails"; //name of storage file
     SharedPreferences sharedPref;
 
@@ -55,6 +56,5 @@ public class UserSharedStorage {
         else {
             return false;
         }
-
     }
 }

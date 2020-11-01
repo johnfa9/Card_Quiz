@@ -1,25 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!-- added Scrollview for landscape mode -->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ResultsActivity">
+    android:background="@color/backgroundColor"
+    android:fillViewport="true"> <!-- added to prevent blank space on bottom -->
 
-    <TextView
-        android:id="@+id/showMsg"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollHorizontally="true"
-        android:singleLine="false"
-        android:text="Show Scores Here"
-        android:verticalScrollbarPosition="right" />
+        android:layout_height="match_parent"
+        tools:context=".ResultsActivity">
 
-    <Button
-        android:id="@+id/button_results"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        <TextView
+            android:id="@+id/showMsg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/button_results"
+            android:background="@color/backgroundColor"
+            android:scrollbars="vertical"
+            android:singleLine="false"
+            android:text="Show Scores Here"
+            android:verticalScrollbarPosition="right" />
 
-        android:text="Play Again"
-        android:layout_alignParentBottom="true"
-        />
 
-</RelativeLayout>
+        <Button
+            android:id="@+id/button_results"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentBottom="true"
+            android:text="Play Again" />
+
+    </RelativeLayout>
+</ScrollView>

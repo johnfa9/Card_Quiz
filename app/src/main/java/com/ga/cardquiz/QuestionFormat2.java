@@ -53,11 +53,7 @@ public class QuestionFormat2 extends Fragment {
                     Toast.makeText(getActivity(), "Please make a selection",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    //set checked items to container
-                    mChoiceA.setChecked(false);
-                    mChoiceB.setChecked(false);
-                    mChoiceC.setChecked(false);
-                    mChoiceD.setChecked(false);
+
                     if (callBackInterface != null) {
                         callBackInterface.callBackMethod(txtCheckedItems);
                     }
@@ -94,6 +90,12 @@ public class QuestionFormat2 extends Fragment {
             mChoiceB = view.findViewById(R.id.choice2);
             mChoiceC = view.findViewById(R.id.choice3);
             mChoiceD = view.findViewById(R.id.choice4);
+
+            //clear check boxes
+            mChoiceA.setChecked(false);
+            mChoiceB.setChecked(false);
+            mChoiceC.setChecked(false);
+            mChoiceD.setChecked(false);
 
             //Populate views
             TextView vwQuestion = (TextView) view.findViewById(R.id.text2_view_selected);

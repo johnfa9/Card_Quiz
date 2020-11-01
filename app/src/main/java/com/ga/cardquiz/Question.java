@@ -1,6 +1,7 @@
 package com.ga.cardquiz;
 
 public class Question {
+    //class for the question fields
     private String type;
     private String questionText;
     private String choiceA;

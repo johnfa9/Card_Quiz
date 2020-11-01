@@ -5,12 +5,9 @@ import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.ParseException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.Date;
 
 public class ActivityRegistration extends AppCompatActivity {
@@ -102,16 +99,14 @@ public class ActivityRegistration extends AppCompatActivity {
             return;
         }
 
-
-
-       //Create new user object and send to Shared Storage
-        User user = new User(firstname,lastname,email,dt,password);
+        //Create new user object and send to Shared Storage
+        User user = new User(firstname, lastname, email, dt, password);
         userSharedStorage = new UserSharedStorage(this);
         userSharedStorage.saveUserData(user);
         userSharedStorage.setLoggedIn(true);
 
-        //User successfully created, return to MainActivity
-        Intent loginIntent = new Intent(this, MainActivity.class);
+        //User successfully created, return to Login
+        Intent loginIntent = new Intent(this, Login1.class);
         startActivity(loginIntent);
     }
 
