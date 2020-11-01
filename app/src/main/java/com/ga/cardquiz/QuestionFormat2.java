@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
@@ -47,9 +48,19 @@ public class QuestionFormat2 extends Fragment {
                 if (mChoiceD.isChecked()) {
                     txtCheckedItems += "choiceD";
                 }
-                //set checked items to container
-                if (callBackInterface != null) {
-                    callBackInterface.callBackMethod(txtCheckedItems);
+                if (!mChoiceA.isChecked() && !mChoiceB.isChecked() && !mChoiceC.isChecked()
+                        && !mChoiceD.isChecked()) {
+                    Toast.makeText(getActivity(), "Please make a selection",
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    //set checked items to container
+                    mChoiceA.setChecked(false);
+                    mChoiceB.setChecked(false);
+                    mChoiceC.setChecked(false);
+                    mChoiceD.setChecked(false);
+                    if (callBackInterface != null) {
+                        callBackInterface.callBackMethod(txtCheckedItems);
+                    }
                 }
             }
 

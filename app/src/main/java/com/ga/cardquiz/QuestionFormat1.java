@@ -62,35 +62,80 @@ public class QuestionFormat1 extends Fragment {
             @Override
             public void onClick(View v)
             {
-                View view =getView();
+                View view = getView();
                 RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
                 int selectedId = radioGroup.getCheckedRadioButtonId();
-                RadioButton radioButton= (RadioButton) view.findViewById(selectedId);
-                String txtRadioButton = (String) radioButton.getText();
-
+                RadioButton radioButton = (RadioButton) view.findViewById(selectedId);
+                //check if user didn't make a selection
+                if (selectedId == -1) {
+                    Toast.makeText(getActivity(), "Please make a selection", Toast.LENGTH_SHORT).show();
+                }
                 //createSnackbar();
-                if(callBackInterface!=null) {
-                    callBackInterface.callBackMethod(txtRadioButton);
+                else {
+
+                    String txtRadioButton = (String) radioButton.getText();
+                    if (callBackInterface != null) {
+                        callBackInterface.callBackMethod(txtRadioButton);
+
+                    }
                 }
             }
         });
         return view;
 
     }
-   @Override
-   public  void onCreate(Bundle savedInstanceState){
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
 
-   }
+    }
 
+
+    // @Override
+//   public void onResume(){
+//        super.onResume();
+//        View view =getView();
+//       RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+//       radioGroup.clearCheck();
+//   }
+
+    //@Override
+//   public void onDetach(){
+//        super.onDetach();
+//       View view =getView();
+//       RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+//       radioGroup.clearCheck();
+//   }
+
+
+//   @Override
+//   public void onDestroyView(){
+//        super.onDestroyView();
+//       View view =getView();
+//       RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+//      radioGroup.clearCheck();
+//
+//
+//    }
+
+//    @Override
+//    public void onStop(){
+//        super.onStop();
+//        View view =getView();
+//        RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
+//        radioGroup.clearCheck();
+//        int selectedId = radioGroup.getCheckedRadioButtonId();
+//
+//    }
 
     @Override
     public void onStart() {
-       // Set the view’s values in the fragment’s onStart() method
+        // Set the view’s values in the fragment’s onStart() method
         super.onStart();
 
-        View view =getView();
+        View view = getView();
         if (view != null) {
             //get view references
             final String question = this.getArguments().getString("Question");
@@ -98,6 +143,7 @@ public class QuestionFormat1 extends Fragment {
             final String choiceB = this.getArguments().getString("ChoiceB");
             final String choiceC = this.getArguments().getString("ChoiceC");
             final String choiceD = this.getArguments().getString("ChoiceD");
+
 
             //Populate question
             TextView vwQuestion =(TextView) view.findViewById(R.id.text_view_selected);
@@ -109,13 +155,16 @@ public class QuestionFormat1 extends Fragment {
             vwQuestion.setText(question);
 
             RadioGroup radioGroup = (RadioGroup) view.findViewById(R.id.radioGroup);
-
+            radioGroup.clearCheck(); //make sure radio buttons are cleared
             ((RadioButton) radioGroup.getChildAt(0)).setText(String.valueOf(choiceA));
             ((RadioButton) radioGroup.getChildAt(1)).setText(String.valueOf(choiceB));
             ((RadioButton) radioGroup.getChildAt(2)).setText(String.valueOf(choiceC));
             ((RadioButton) radioGroup.getChildAt(3)).setText(String.valueOf(choiceD));
 
-
+//            ((RadioButton) radioGroup.getChildAt(0)).setChecked(false);
+//            ((RadioButton) radioGroup.getChildAt(1)).setChecked(false);
+//            ((RadioButton) radioGroup.getChildAt(2)).setChecked(false);
+//            ((RadioButton) radioGroup.getChildAt(3)).setChecked(false);
 
 
             //need to pass data from questions
@@ -128,6 +177,8 @@ public class QuestionFormat1 extends Fragment {
     public void onAttach(Context context) { //called when fragment gets attached to the activity
         super.onAttach(context);
 //        this.listener = (Listener)context;
+
+
     }
 
 //    public void createSnackbar() {

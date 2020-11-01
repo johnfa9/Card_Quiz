@@ -164,9 +164,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void callBackMethod(final String strPassed) {
-        boolean answer = false;
-        Toast.makeText(this, strPassed, Toast.LENGTH_SHORT).show();
-        confirmAnswer(strPassed);
+        if (strPassed == "restart") {
+            RestartGame();
+        } else {
+            boolean answer = false;
+            Toast.makeText(this, strPassed, Toast.LENGTH_SHORT).show();
+            confirmAnswer(strPassed);
+        }
         //displayFragment(intQuestionPosition);
     }
 
@@ -239,7 +243,7 @@ public class MainActivity extends AppCompatActivity
 
         //load result fragment
 
-        //DisplayResult();
+        DisplayResult();
 
         //Intent intent = new Intent(this, ResultsActivity.class);
         //startActivity(intent);
@@ -252,7 +256,7 @@ public class MainActivity extends AppCompatActivity
 
         //super.onBackPressed();
         //intQuestionPosition = intQuestionPosition -1;
-        Toast.makeText(this, "Sorry you can update a confirmed answer", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Sorry you can't go back now", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -282,30 +286,29 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-    public void RestartGame(View view) {
+    public void RestartGame() {
+        //clear answer of previous game
         Toast.makeText(this, "I restarted", Toast.LENGTH_LONG).show();
         //reset game parameters
-        for (int i = 0;i<intQuestionCount;i++) {
+        for (int i = 0; i < intQuestionCount; i++) {
             Questions.questionList[i].setUserAnswer(null);
             Questions.questionList[i].setCorrectAnswer(false);
         }
-
-     //displayFragment(0);
-     }
-//
-ResultsActivity resultView;
-
+        //display first question
+        intQuestionPosition = 0;
+        displayFragment(0);
+    }
 
 
-//     public void DisplayResult(){
-//         ResultsActivity resultView = new ResultsActivity();
-//         resultView.setCallBackInterface(this);
-//         FragmentTransaction transaction = manager.beginTransaction();
-//         transaction.replace(R.id.main_layout, res, "questionType" + "results");   //id created for main activity layout
-         //transaction.addToBackStack("Question " + fragNum);
-//         transaction.commit();
+    public void DisplayResult() {
+        ResultsActivity resultView = new ResultsActivity();
+        resultView.setCallBackInterface(this);
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.main_layout, resultView, "questionType" + "results");   //id created for main activity layout
+        //transaction.addToBackStack("Result " + fragNum);
+        transaction.commit();
 
-     //}
+    }
 
 
 }
